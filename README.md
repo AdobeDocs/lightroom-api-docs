@@ -136,7 +136,7 @@ curl -X POST \
 		"storage":"<storage>",
 		"type":"<type>"}]}'
  https://image-stage.adobe.io/lrService/autoTone
-
+```
 
 This initiates an asynchronous job and returns a request body containing the href to poll for job status.
 ```json
