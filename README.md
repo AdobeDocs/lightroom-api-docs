@@ -29,7 +29,7 @@
 
 # Prerelease Program
 
-The Lightroom-ACR APIs are made available through the Adobe Prelease program. These APis are included as part of the Photoshop as a Service pre-release program.  For the ability to make these API calls, we invite you to join the program.
+The Lightroom-ACR APIs are made available through the Adobe Prelease program. These APIs are included as part of the Photoshop as a Service pre-release program.  For the ability to make these API calls, we invite you to join the program.
 
 Please be aware of some aspects of the program. For example, you will need to agree to the Adobe Prelease agreement and NDA. The APIs are provided for evaluation purposes. The current APIs are subject to change. You can find more information on the Adobe Prerelease page.
 
@@ -39,13 +39,13 @@ If you are not currently a member, please sign up at [https://photoshop.adobelan
 
 # Welcome to Lightroom-ACR API's!
 
-The Adobe Lightroom-ACR API's you to make Lightroom like automated edits to JPG image files.  This page is meant to help you onboard with the service and get you started with some basic usage examples.
+The Adobe Lightroom-ACR APIs allow you to make Lightroom like automated edits to JPG image files.  This page is meant to help you onboard with the service and get you started with some basic usage examples.
 
 # Setup
 
 ## Authentication
 
-You must pass in an OAuth 2.0 access token with every request. The API's do not provide any API methods for authentication or authorization. Access tokens are granted by Adobe's IMS service. The Photo API needs an access token in the scope="system,openid,AdobeID,creative_sdk" and hence it is required that you pass in this parameter to the IMS Login Authorization API.
+You must pass in an OAuth 2.0 access token with every request. The APIs do not provide any API methods for authentication or authorization. Access tokens are granted by Adobe's IMS service. The APIs need an access token with the scope="openid,creative_sdk", which you pass to the IMS Login Authorization API.
 
 The access token must never be transmitted as a URI parameter. Doing so would expose it to being captured in-the-clear by intermediaries such as proxy server logs. The API does not allow you to send an access token anywhere except the Authorization header field.
 
@@ -72,7 +72,7 @@ For service-to-service clients you'll need to set up an Adobe I/O Console Integr
 
 #### Assets stored on Adobe's Creative Cloud
 
-The Adobe Lightroom-ACR API's currently have a limitation that Service clients must store their assets externally to Adobe's Creative Cloud...
+The Adobe Lightroom-ACR APIs currently have a limitation that Service clients must store their assets externally to Adobe's Creative Cloud.
 
 #### Assets stored externally to Adobe
 This applies to assets stored outside of Adobe's Creative Cloud and accessed via preSigned URL's
@@ -88,7 +88,7 @@ To retrieve your access token see additional instructions at [Setting up JWT Aut
 
 ## API Keys
 
-Also known as the `client_id`. You must additionally pass in your Adobe API key in the `x-api-key` header field. You’ll automatically get a developer API key when you create your Adobe I/O Console Integration.  After you've created your integration you can find your API key in the `Overview` tab of your Integration
+Also known as the `client_id`. You must pass in your Adobe API key in the `x-api-key` header field.
 
 ## Retries
 
