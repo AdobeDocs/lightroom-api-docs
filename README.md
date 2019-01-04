@@ -26,6 +26,16 @@
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
+# Prerelease Program
+
+The Lightroom-ACR APIs are made available through the Adobe Prelease program. These APis are included as part of the Photoshop as a Service pre-release program.  For the ability to make these API calls, we invite you to join the program.
+
+Please be aware of some aspects of the program. For example, you will need to agree to the Adobe Prelease agreement and NDA. The APIs are provided for evaluation purposes. The current APIs are subject to change. You can find more information on the Adobe Prerelease page.
+
+If you are not currently a member, please sign up at [https://photoshop.adobelanding.com/prerelease-stack/](https://photoshop.adobelanding.com/prerelease-stack/)
+
+
+
 # Welcome to Lightroom-ACR API's!
 
 The Adobe Lightroom-ACR API's you to make Lightroom like automated edits to JPG image files.  This page is meant to help you onboard with the service and get you started with some basic usage examples.
