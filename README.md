@@ -5,6 +5,7 @@
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
 **Table of Contents**  *generated with [DocToc](https://github.com/thlorenz/doctoc)*
 
+- [Prerelease Program](#prerelease-program)
 - [Welcome to Lightroom-ACR API's!](#welcome-to-lightroom-acr-apis)
 - [Setup](#setup)
   - [Authentication](#authentication)
