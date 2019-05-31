@@ -193,7 +193,7 @@ This initiates an asynchronous job and returns a request body containing the hre
 {
   "_links": {
     "self": {
-      "href": "https://image-stage.adobe.io/lrService/status/<:jobId>"
+      "href": "https://image.adobe.io/lrService/status/<:jobId>"
     }
   }
 }
@@ -249,7 +249,7 @@ This initiates an asynchronous job and returns a request body containing the hre
 {
   "_links": {
     "self": {
-      "href": "https://image-stage.adobe.io/lrService/status/<:jobId>"
+      "href": "https://image.adobe.io/lrService/status/<:jobId>"
     }
   }
 }
@@ -316,7 +316,7 @@ This initiates an asynchronous job and returns a request body containing the hre
 {
   "_links": {
     "self": {
-      "href": "https://image-stage.adobe.io/lrService/status/<:jobId>"
+      "href": "https://image.adobe.io/lrService/status/<:jobId>"
     }
   }
 }
