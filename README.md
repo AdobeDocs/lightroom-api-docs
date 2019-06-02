@@ -183,7 +183,7 @@ curl -X POST \
   ]
 }'
 
-https://image-stage.adobe.io/lrService/autoTone
+https://image.adobe.io/lrService/autoTone
 
 ```
 
@@ -239,7 +239,7 @@ curl -X POST \
   ]
 }'
 
-https://image-stage.adobe.io/lrService/presets
+https://image.adobe.io/lrService/presets
 
 ```
 
@@ -306,7 +306,7 @@ curl -X POST \
   ]
 }'
 
-https://image-stage.adobe.io/lrService/presets
+https://image.adobe.io/lrService/presets
 
 ```
 
