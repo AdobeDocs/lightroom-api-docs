@@ -264,25 +264,25 @@ curl -X POST \
     }
   },
   "options": {
-    "Exposure": -5.00 to +5.00,
-    "Contrast": -100 to +100,
+    "Exposure": -5.00 to 5.00,
+    "Contrast": -100 to 100,
     "Sharpness": 0 10 150,
     "WhiteBalance": <"As Shot", "Auto", "Cloudy", "Custom", "Daylight", "Flash", "Fluorescent", "Shade", "Tungsten">
-    "Saturation": -100 to +100,
+    "Saturation": -100 to 100,
     "ColorNoiseReduction": 0 to 100,
     "NoiseReduction": 0 to 100,
-    "VignetteAmount": -100 to +100,
-    "Vibrance": -100 to +100,
-    "Highlights": -100 to +100,
-    "Shadows": -100 to +100,
-    "Whites": -100 to +100,
-    "Blacks": -100 to +100,
-    "Clarity": -100 to +100,
+    "VignetteAmount": -100 to 100,
+    "Vibrance": -100 to 100,
+    "Highlights": -100 to 100,
+    "Shadows": -100 to 100,
+    "Whites": -100 to 100,
+    "Blacks": -100 to 100,
+    "Clarity": -100 to 100,
     "Dehaze": -100 to +100,
     "SharpenRadius": 0.5 to 3.0,
-    "SharpenDetail": 0 to +100,
-    "SharpenEdgeMasking": 0 to +100,
-    "Exposure": -5.00 t0 +5.00
+    "SharpenDetail": 0 to 100,
+    "SharpenEdgeMasking": 0 to 100,
+    "Texture": -100 t0 100
   },
   "outputs": [
     {
