@@ -42,7 +42,7 @@ If you are not currently a member, please sign up at [https://photoshop.adobelan
 
 # Welcome to Lightroom-ACR API's!
 
-The Adobe Lightroom-ACR APIs allow you to make Lightroom like automated edits to JPG image files.  This page is meant to help you onboard with the service and get you started with some basic usage examples. This is service does not support the storage that Lightroom users have access to, instead, it allows users to use any other form of storage to work on their images. The list of supported storage systems are listed further below in this documentation. 
+The Adobe Lightroom-ACR APIs allow you to make Lightroom like automated edits to JPG image files.  This page is meant to help you onboard with the service and get you started with some basic usage examples. This is service does not support the storage that Lightroom users have access to, instead, it allows users to use any other form of storage to work on their images. The list of supported storage systems are listed further below in this documentation.
 
 # Setup
 
@@ -244,7 +244,7 @@ This initiates an asynchronous job and returns a request body containing the hre
 ```
 ## /edit
 
-### Example : Initiate a job to apply presets to an image
+### Example : Initiate a job to apply edits to an image
 
 ```shell
 
@@ -294,7 +294,7 @@ curl -X POST \
   ]
 }'
 
-https://image.adobe.io/lrService/presets
+https://image.adobe.io/lrService/edit
 
 ```
 
