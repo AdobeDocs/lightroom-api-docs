@@ -1,45 +1,33 @@
 <!-- START doctoc generated TOC please keep comment here to allow auto update -->
-
+<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
 
-**Table of Contents**  *generated with [DocToc](https://github.com/thlorenz/doctoc)*
-
 - [Prerelease Program](#prerelease-program)
-
 - [Welcome to Lightroom-ACR API's!](#welcome-to-lightroom-acr-apis)
-
 - [Setup](#setup)
-
-- [Authentication](#authentication)
-
-- [Individual users](#individual-users)
-
-- [Service-to-service clients](#service-to-service-clients)
-
-- [Assets stored on Adobe's Creative Cloud](#assets-stored-on-adobes-creative-cloud)
-
-- [Assets stored externally to Adobe](#assets-stored-externally-to-adobe)
-
-- [API Keys](#api-keys)
-
-- [Retries](#retries)
-
-- [Rate Limiting](#rate-limiting)
-
+  - [Authentication](#authentication)
+    - [Individual users](#individual-users)
+    - [Service-to-service clients](#service-to-service-clients)
+      - [Assets stored on Adobe's Creative Cloud](#assets-stored-on-adobes-creative-cloud)
+      - [Assets stored externally to Adobe](#assets-stored-externally-to-adobe)
+  - [API Keys](#api-keys)
+  - [Retries](#retries)
+  - [Rate Limiting](#rate-limiting)
 - [General Workflow](#general-workflow)
-
+  - [Input and Output file locations](#input-and-output-file-locations)
+  - [Input and Output file formats](#input-and-output-file-formats)
 - [Supported Features](#supported-features)
-
-- [AutoTone](#autotone)
-
+  - [AutoTone](#autotone)
+  - [Presets](#presets)
+  - [Edit](#edit)
 - [How to use the APIs](#how-to-use-the-apis)
-
-- [/autoTone](#autotone)
-
-- [Example : Initiate a job to auto tone an image](#example--initiate-a-job-to-auto-tone-an-image)
-
+  - [/autoTone](#autotone)
+    - [Example : Initiate a job to auto tone an image](#example--initiate-a-job-to-auto-tone-an-image)
+  - [/presets](#presets)
+    - [Example : Initiate a job to apply presets to an image](#example--initiate-a-job-to-apply-presets-to-an-image)
+  - [/edit](#edit)
+    - [Example : Initiate a job to apply presets to an image](#example--initiate-a-job-to-apply-presets-to-an-image-1)
 - [Current Limitations](#current-limitations)
-
 - [Release Notes](#release-notes)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
