@@ -1,28 +1,45 @@
-
-
-
 <!-- START doctoc generated TOC please keep comment here to allow auto update -->
+
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
+
 **Table of Contents**  *generated with [DocToc](https://github.com/thlorenz/doctoc)*
 
 - [Prerelease Program](#prerelease-program)
+
 - [Welcome to Lightroom-ACR API's!](#welcome-to-lightroom-acr-apis)
+
 - [Setup](#setup)
-  - [Authentication](#authentication)
-    - [Individual users](#individual-users)
-    - [Service-to-service clients](#service-to-service-clients)
-      - [Assets stored on Adobe's Creative Cloud](#assets-stored-on-adobes-creative-cloud)
-      - [Assets stored externally to Adobe](#assets-stored-externally-to-adobe)
-  - [API Keys](#api-keys)
-  - [Retries](#retries)
-  - [Rate Limiting](#rate-limiting)
+
+- [Authentication](#authentication)
+
+- [Individual users](#individual-users)
+
+- [Service-to-service clients](#service-to-service-clients)
+
+- [Assets stored on Adobe's Creative Cloud](#assets-stored-on-adobes-creative-cloud)
+
+- [Assets stored externally to Adobe](#assets-stored-externally-to-adobe)
+
+- [API Keys](#api-keys)
+
+- [Retries](#retries)
+
+- [Rate Limiting](#rate-limiting)
+
 - [General Workflow](#general-workflow)
+
 - [Supported Features](#supported-features)
-  - [AutoTone](#autotone)
+
+- [AutoTone](#autotone)
+
 - [How to use the APIs](#how-to-use-the-apis)
-  - [/autoTone](#autotone)
-    - [Example : Initiate a job to auto tone an image](#example--initiate-a-job-to-auto-tone-an-image)
+
+- [/autoTone](#autotone)
+
+- [Example : Initiate a job to auto tone an image](#example--initiate-a-job-to-auto-tone-an-image)
+
 - [Current Limitations](#current-limitations)
+
 - [Release Notes](#release-notes)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
@@ -35,11 +52,9 @@ Please be aware of some aspects of the program. For example, you will need to ag
 
 If you are not currently a member, please sign up at [https://photoshop.adobelanding.com/prerelease-stack/](https://photoshop.adobelanding.com/prerelease-stack/)
 
-
-
 # Welcome to Lightroom-ACR API's!
 
-The Adobe Lightroom-ACR APIs allow you to make Lightroom like automated edits to JPG image files.  This page is meant to help you onboard with the service and get you started with some basic usage examples.
+The Adobe Lightroom-ACR APIs allow you to make Lightroom like automated edits to JPG image files.  This page is meant to help you onboard with the service and get you started with some basic usage examples. This is service does not support the storage that Lightroom users have access to, instead, it allows users to use any other form of storage to work on their images. The list of supported storage systems are listed further below in this documentation. 
 
 # Setup
 
@@ -54,34 +69,45 @@ There are two scenarios that require different authentication methods:
 ### Individual users
 
 You will be emailed your Client ID and Client Secret required for the IMS endpoint after you've been accepted to the PreRelease program.  Once you've received your email...
+
 - Do a quick test:
-	- Browse to [https://ps-prerelease-us-east-1.cloud.adobe.io/](https://ps-prerelease-us-east-1.cloud.adobe.io/)
-	- Add your Client ID and Client Secret sent in email
-	- Enter your Adobe credentials when prompted
-	- Use the access token to try the example calls further down this README
+
+- Browse to [https://ps-prerelease-us-east-1.cloud.adobe.io/](https://ps-prerelease-us-east-1.cloud.adobe.io/)
+
+- Add your Client ID and Client Secret sent in email
+
+- Enter your Adobe credentials when prompted
+
+- Use the access token to try the example calls further down this README
 
 Additional instructions regarding the Adobe IMS endpoints can be found at [Generating Access Tokens](https://www.adobe.io/authentication/auth-methods.html#!adobeio/adobeio-documentation/master/auth/OAuth2.0Endpoints/web-oauth2.0-guide.md#generatingaccesstokens)
-Additional instructions can be found at [Setting up OAuth authentication](https://www.adobe.io/authentication/auth-methods.html#!adobeio/adobeio-documentation/master/auth/OAuth2.0Endpoints/web-oauth2.0-guide.md)
-Complete examples for OAuth endpoints can be found at [OAuth endpoint examples](https://www.adobe.io/authentication/auth-methods.html#!adobeio/adobeio-documentation/master/auth/OAuth2.0Endpoints/web-oauth2.0-guide.md#completeexamplesforoauthendpoints)
 
+Additional instructions can be found at [Setting up OAuth authentication](https://www.adobe.io/authentication/auth-methods.html#!adobeio/adobeio-documentation/master/auth/OAuth2.0Endpoints/web-oauth2.0-guide.md)
+
+Complete examples for OAuth endpoints can be found at [OAuth endpoint examples](https://www.adobe.io/authentication/auth-methods.html#!adobeio/adobeio-documentation/master/auth/OAuth2.0Endpoints/web-oauth2.0-guide.md#completeexamplesforoauthendpoints)
 
 ### Service-to-service clients
 
 For service-to-service clients you'll need to set up an Adobe I/O Console Integration and create a JSON Web Token (JWT) to retrieve your access token for API's. It is assumed your organization already has an Adobe IMS Org ID and you have added the required users to it.
-
 
 #### Assets stored on Adobe's Creative Cloud
 
 The Adobe Lightroom-ACR APIs currently have a limitation that Service clients must store their assets externally to Adobe's Creative Cloud.
 
 #### Assets stored externally to Adobe
+
 This applies to assets stored outside of Adobe's Creative Cloud and accessed via preSigned URL's
 
 - Browse to https://console.adobe.io/integrations
+
 - Select New Integration
+
 - Select `Access an API`
+
 - Select `Lightroom`
+
 - Select `Service Account integration`
+
 - Select `Create new integration`
 
 To retrieve your access token see additional instructions at [Setting up JWT Authentication](https://www.adobe.io/authentication/auth-methods.html#!adobeio/adobeio-documentation/master/auth/JWTAuthenticationQuickStart.md)
@@ -93,27 +119,38 @@ Also known as the `client_id`. You must pass in your Adobe API key in the `x-api
 ## Retries
 
 - You should only retry requests that have a 5xx response code. A 5xx error response indicates there was a problem processing the request on the server.
+
 - You should implement an exponential back-off retry strategy with 3 retry attempts.
+
 - You should not retry requests for any other response code.
 
 ## Rate Limiting
 
 We have not put a throttle limit on requests to the API at this time.
 
-
 # General Workflow
 
 The typical workflow involves specifying an image and the operation to be applied to it. The endpoint is asynchronous so the response will contain the `/status` endpoint to poll for job status and results
+## Input and Output file locations
 
+For the time being clients can only use assets stored on EITHER Adobe's Creative Cloud OR external storage (like AWS S3 or Azure Blog Storage).  Support for mixing and matching storage types will be added in the future.
 
+## Input and Output file formats
+
+Any input image format that is supported by Lightroom is also supported by the APIs. To look at the list of these formats in more detail, please refer to: [https://helpx.adobe.com/lightroom-classic/help/supported-file-formats.html](https://helpx.adobe.com/lightroom-classic/help/supported-file-formats.html)
 # Supported Features
 
 This is a list of currently supported features
 
 ## AutoTone
 
-- Auto Tone an image to correct exposure/contrast/sharpness/etc
+- Automatically tone an image to correct exposure/contrast/sharpness/etc
 
+## Presets
+- Apply one or more XMP Lightroom presets to an image.
+
+## Edit
+- Apply one or more Lightroom edits to an image.
 
 # How to use the APIs
 
@@ -121,34 +158,169 @@ This is a list of currently supported features
 
 ### Example : Initiate a job to auto tone an image
 
-
 ```shell
+
 curl -X POST \
-	-H "authorization: Bearer $token" \
-	-H "Content-Type:application/json" \
-	-H "x-api-key:$x-api-key" \
-	-d '{
-	"inputs":{
-		"href":"<href>",
-		"storage":"<storage>"},
-	"outputs":[{
-		"href":"<href>",
-		"storage":"<storage>",
-		"type":"<type>"}]}'
- https://image-stage.adobe.io/lrService/autoTone
+
+-H "authorization: Bearer $token" \
+
+-H "Content-Type:application/json" \
+
+-H "x-api-key:$x-api-key" \
+
+-d '{
+  "inputs": {
+      "href": "<href>",
+      "storage": "<storage>"
+  },
+  "outputs": [
+    {
+      "href": "<href>",
+      "type": "<type>",
+      "storage": "<storage>",
+      "overwrite": <boolean>
+    }
+  ]
+}'
+
+https://image.adobe.io/lrService/autoTone
+
 ```
 
 This initiates an asynchronous job and returns a request body containing the href to poll for job status.
+
 ```json
 {
-    "_links": {
-        "self": {
-            "href": "https://image-stage.adobe.io/lrService/status/<:jobId>"
-        }
+  "_links": {
+    "self": {
+      "href": "https://image.adobe.io/lrService/status/<:jobId>"
     }
+  }
 }
 ```
+## /presets
 
+### Example : Initiate a job to apply presets to an image
+
+```shell
+
+curl -X POST \
+
+-H "authorization: Bearer $token" \
+
+-H "Content-Type:application/json" \
+
+-H "x-api-key:$x-api-key" \
+
+-d '{
+  "inputs": {
+    "source": {
+      "href": "<href>",
+      "storage": "<storage>"
+    },
+    "presets": [
+      {
+        "href": "<href1>",
+        "storage": "<storage>"
+      },
+      {
+        "href": "<href2>",
+        "storage": "<storage>"
+      }
+    ]
+  },
+  "outputs": [
+    {
+      "href": "<href>",
+      "type": "<type>",
+      "storage": "<storage>",
+      "overwrite": <boolean>
+    }
+  ]
+}'
+
+https://image.adobe.io/lrService/presets
+
+```
+
+This initiates an asynchronous job and returns a request body containing the href to poll for job status.
+
+```json
+{
+  "_links": {
+    "self": {
+      "href": "https://image.adobe.io/lrService/status/<:jobId>"
+    }
+  }
+}
+```
+## /edit
+
+### Example : Initiate a job to apply presets to an image
+
+```shell
+
+curl -X POST \
+
+-H "authorization: Bearer $token" \
+
+-H "Content-Type:application/json" \
+
+-H "x-api-key:$x-api-key" \
+
+-d '{
+  "inputs": {
+    "source": {
+      "href": "<href>",
+      "storage": "<storage>"
+    }
+  },
+  "options": {
+    "Exposure": -5.00 to +5.00,
+    "Contrast": -100 to +100,
+    "Sharpness": 0 10 150,
+    "WhiteBalance": <"As Shot", "Auto", "Cloudy", "Custom", "Daylight", "Flash", "Fluorescent", "Shade", "Tungsten">
+    "Saturation": -100 to +100,
+    "ColorNoiseReduction": 0 to 100,
+    "NoiseReduction": 0 to 100,
+    "VignetteAmount": -100 to +100,
+    "Vibrance": -100 to +100,
+    "Highlights": -100 to +100,
+    "Shadows": -100 to +100,
+    "Whites": -100 to +100,
+    "Blacks": -100 to +100,
+    "Clarity": -100 to +100,
+    "Dehaze": -100 to +100,
+    "SharpenRadius": 0.5 to 3.0,
+    "SharpenDetail": 0 to +100,
+    "SharpenEdgeMasking": 0 to +100,
+    "Exposure": -5.00 t0 +5.00
+  },
+  "outputs": [
+    {
+      "href": "<href>",
+      "type": "<type>",
+      "storage": "<storage>",
+      "overwrite": <boolean>
+    }
+  ]
+}'
+
+https://image.adobe.io/lrService/presets
+
+```
+
+This initiates an asynchronous job and returns a request body containing the href to poll for job status.
+
+```json
+{
+  "_links": {
+    "self": {
+      "href": "https://image.adobe.io/lrService/status/<:jobId>"
+    }
+  }
+}
+```
 # Current Limitations
 
 # Release Notes
