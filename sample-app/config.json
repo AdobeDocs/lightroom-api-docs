@@ -1,0 +1,6 @@
+{
+  "services": {
+    "adobeIms": "https://ims-na1-stg1.adobelogin.com",
+    "lrService": "https://image-stage.adobe.io/lrService"
+  }
+}
