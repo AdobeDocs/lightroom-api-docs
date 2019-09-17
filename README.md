@@ -15,7 +15,7 @@
   - [Retries](#retries)
   - [Rate Limiting](#rate-limiting)
 - [General Workflow](#general-workflow)
-  - [Input and Output file locations](#input-and-output-file-locations)
+  - [Input and Output file storage](#input-and-output-file-storage)
   - [Input and Output file formats](#input-and-output-file-formats)
 - [Supported Features](#supported-features)
   - [AutoTone](#autotone)
