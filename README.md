@@ -1,9 +1,10 @@
+
 <!-- START doctoc generated TOC please keep comment here to allow auto update -->
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
 
 - [Prerelease Program](#prerelease-program)
-- [Welcome to Lightroom-ACR API's!](#welcome-to-lightroom-acr-apis)
+- [Welcome to Lightroom API's!](#welcome-to-lightroom-apis)
 - [Setup](#setup)
   - [Authentication](#authentication)
     - [Individual users](#individual-users)
@@ -14,19 +15,21 @@
   - [Retries](#retries)
   - [Rate Limiting](#rate-limiting)
 - [General Workflow](#general-workflow)
-  - [Input and Output file locations](#input-and-output-file-locations)
+  - [Input and Output file storage](#input-and-output-file-storage)
   - [Input and Output file formats](#input-and-output-file-formats)
 - [Supported Features](#supported-features)
   - [AutoTone](#autotone)
+	  - [/autoTone](#autotone)
+	   - [Example : Initiate a job to auto tone an image](#example--initiate-a-job-to-auto-tone-an-image)
   - [Presets](#presets)
+	  - [/presets](#presets)
+      - [Example : Initiate a job to apply presets to an image](#example--initiate-a-job-to-apply-presets-to-an-image)
   - [Edit](#edit)
-- [How to use the APIs](#how-to-use-the-apis)
-  - [/autoTone](#autotone)
-    - [Example : Initiate a job to auto tone an image](#example--initiate-a-job-to-auto-tone-an-image)
-  - [/presets](#presets)
-    - [Example : Initiate a job to apply presets to an image](#example--initiate-a-job-to-apply-presets-to-an-image)
-  - [/edit](#edit)
-    - [Example : Initiate a job to apply presets to an image](#example--initiate-a-job-to-apply-presets-to-an-image-1)
+    - [/edit](#edit)
+    - [Example : Initiate a job to apply edits to an image](#example--initiate-a-job-to-apply-edits-to-an-image)
+   - [Xmp](#xmp)
+	   - [/xmp](#xmp)
+	   - [Example : Initiate a job to apply presets to an image](#example--initiate-a-job-to-apply-xmp-to-an-image)
 - [Current Limitations](#current-limitations)
 - [Release Notes](#release-notes)
 
@@ -34,15 +37,15 @@
 
 # Prerelease Program
 
-The Lightroom-ACR APIs are made available through the Adobe Prelease program. These APIs are included as part of the Photoshop as a Service pre-release program.  For the ability to make these API calls, we invite you to join the program.
+The Lightroom APIs are made available through the Adobe Prelease program. These APIs are included as part of the Photoshop as a Service pre-release program.  For the ability to make these API calls, we invite you to join the program.
 
 Please be aware of some aspects of the program. For example, you will need to agree to the Adobe Prelease agreement and NDA. The APIs are provided for evaluation purposes. The current APIs are subject to change. You can find more information on the Adobe Prerelease page.
 
 If you are not currently a member, please sign up at [https://photoshop.adobelanding.com/prerelease-stack/](https://photoshop.adobelanding.com/prerelease-stack/)
 
-# Welcome to Lightroom-ACR API's!
+# Welcome to Lightroom API's!
 
-The Adobe Lightroom-ACR APIs allow you to make Lightroom like automated edits to JPG image files.  This page is meant to help you onboard with the service and get you started with some basic usage examples. This is service does not support the storage that Lightroom users have access to, instead, it allows users to use any other form of storage to work on their images. The list of supported storage systems are listed further below in this documentation.
+The Adobe Lightroom APIs allow you to make Lightroom like automated edits to image files.  This page is meant to help you onboard with the service and get you started with some basic usage examples. This service does not support the storage that Lightroom users have access to, instead, it allows users to use any other form of storage to work on their images. The list of supported storage systems are listed further below in this documentation.
 
 # Setup
 
@@ -80,7 +83,7 @@ For service-to-service clients you'll need to set up an Adobe I/O Console Integr
 
 #### Assets stored on Adobe's Creative Cloud
 
-The Adobe Lightroom-ACR APIs currently have a limitation that Service clients must store their assets externally to Adobe's Creative Cloud.
+The Adobe Lightroom APIs currently have a limitation that Service clients must store their assets externally to Adobe's Creative Cloud.
 
 #### Assets stored externally to Adobe
 
@@ -119,30 +122,23 @@ We have not put a throttle limit on requests to the API at this time.
 # General Workflow
 
 The typical workflow involves specifying an image and the operation to be applied to it. The endpoint is asynchronous so the response will contain the `/status` endpoint to poll for job status and results
-## Input and Output file locations
+## Input and Output file storage
 
-For the time being clients can only use assets stored on EITHER Adobe's Creative Cloud OR external storage (like AWS S3 or Azure Blog Storage).  Support for mixing and matching storage types will be added in the future.
+For the time being clients can only use assets stored on EITHER Adobe's Creative Cloud OR external storage (like AWS S3 or Azure Blog Storage). For external storage, a presigned URL will need to be provided as the href that references the input/output asset.
 
 ## Input and Output file formats
 
 Any input image format that is supported by Lightroom is also supported by the APIs. To look at the list of these formats in more detail, please refer to: [https://helpx.adobe.com/lightroom-classic/help/supported-file-formats.html](https://helpx.adobe.com/lightroom-classic/help/supported-file-formats.html)
+
+At this point the output formats supported are JPG, DNG and PNG.
 # Supported Features
 
 This is a list of currently supported features
 
 ## AutoTone
-
-- Automatically tone an image to correct exposure/contrast/sharpness/etc
-
-## Presets
-- Apply one or more XMP Lightroom presets to an image.
-
-## Edit
-- Apply one or more Lightroom edits to an image.
-
-# How to use the APIs
-
-## /autoTone
+Automatically tone an image to correct exposure/contrast/sharpness/etc
+### /autoTone
+https://adobedocs.github.io/lightroom-api-docs/#api-autoTone-auto_tone_post
 
 ### Example : Initiate a job to auto tone an image
 
@@ -172,7 +168,6 @@ curl -X POST \
 }'
 
 https://image.adobe.io/lrService/autoTone
-
 ```
 
 This initiates an asynchronous job and returns a request body containing the href to poll for job status.
@@ -186,8 +181,12 @@ This initiates an asynchronous job and returns a request body containing the hre
   }
 }
 ```
-## /presets
 
+## Presets
+Apply one or more XMP Lightroom presets to an image, by referencing a stored preset file.
+### /presets
+
+https://adobedocs.github.io/lightroom-api-docs/#api-presets-presets_post
 ### Example : Initiate a job to apply presets to an image
 
 ```shell
@@ -228,7 +227,6 @@ curl -X POST \
 }'
 
 https://image.adobe.io/lrService/presets
-
 ```
 
 This initiates an asynchronous job and returns a request body containing the href to poll for job status.
@@ -242,7 +240,10 @@ This initiates an asynchronous job and returns a request body containing the hre
   }
 }
 ```
-## /edit
+## Edit
+Apply one or more Lightroom edits to an image.
+### /edit
+https://adobedocs.github.io/lightroom-api-docs/#api-edit-edit_post
 
 ### Example : Initiate a job to apply edits to an image
 
@@ -295,7 +296,6 @@ curl -X POST \
 }'
 
 https://image.adobe.io/lrService/edit
-
 ```
 
 This initiates an asynchronous job and returns a request body containing the href to poll for job status.
@@ -309,6 +309,54 @@ This initiates an asynchronous job and returns a request body containing the hre
   }
 }
 ```
-# Current Limitations
+## XMP
+Apply a Lightroom preset to an image, by passing in the preset XMP contents inline through the API.
+### /xmp
+https://adobedocs.github.io/lightroom-api-docs/#api-xmp-xmp_post
+### Example : Initiate a job to apply xmp to an image
 
+```shell
+
+curl -X POST \
+
+-H "authorization: Bearer $token" \
+
+-H "Content-Type:application/json" \
+
+-H "x-api-key:$x-api-key" \
+
+-d '{
+  "inputs": {
+    "href": "<href>",
+    "storage": "<storage>"
+  },
+  "options": {
+    "xmp": "<xmp>"
+  },
+  "outputs": [
+    {
+      "href": "<href>",
+      "storage": "<storage>",
+      "type": "<type>"
+    }
+  ]
+}'
+
+https://image.adobe.io/lrService/xmp
+```
+
+This initiates an asynchronous job and returns a request body containing the href to poll for job status.
+
+```json
+{
+  "_links": {
+    "self": {
+      "href": "https://image.adobe.io/lrService/status/<:jobId>"
+    }
+  }
+}
+```
+
+# Current Limitations
+&nbsp;
 # Release Notes
