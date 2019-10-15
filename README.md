@@ -1,4 +1,3 @@
-
 <!-- START doctoc generated TOC please keep comment here to allow auto update -->
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
@@ -19,17 +18,20 @@
   - [Input and Output file formats](#input-and-output-file-formats)
 - [Supported Features](#supported-features)
   - [AutoTone](#autotone)
-	  - [/autoTone](#autotone)
-	   - [Example : Initiate a job to auto tone an image](#example--initiate-a-job-to-auto-tone-an-image)
+    - [/autoTone](#autotone)
+    - [Example : Initiate a job to auto tone an image](#example--initiate-a-job-to-auto-tone-an-image)
+  - [AutoStraighten](#autostraighten)
+    - [/autoStraighten](#autostraighten)
+    - [Example : Initiate a job to auto straighten an image](#example--initiate-a-job-to-auto-straighten-an-image)
   - [Presets](#presets)
-	  - [/presets](#presets)
-      - [Example : Initiate a job to apply presets to an image](#example--initiate-a-job-to-apply-presets-to-an-image)
+    - [/presets](#presets)
+    - [Example : Initiate a job to apply presets to an image](#example--initiate-a-job-to-apply-presets-to-an-image)
   - [Edit](#edit)
     - [/edit](#edit)
     - [Example : Initiate a job to apply edits to an image](#example--initiate-a-job-to-apply-edits-to-an-image)
-   - [Xmp](#xmp)
-	   - [/xmp](#xmp)
-	   - [Example : Initiate a job to apply presets to an image](#example--initiate-a-job-to-apply-xmp-to-an-image)
+  - [XMP](#xmp)
+    - [/xmp](#xmp)
+    - [Example : Initiate a job to apply xmp to an image](#example--initiate-a-job-to-apply-xmp-to-an-image)
 - [Current Limitations](#current-limitations)
 - [Release Notes](#release-notes)
 
@@ -124,7 +126,11 @@ We have not put a throttle limit on requests to the API at this time.
 The typical workflow involves specifying an image and the operation to be applied to it. The endpoint is asynchronous so the response will contain the `/status` endpoint to poll for job status and results
 ## Input and Output file storage
 
-For the time being clients can only use assets stored on EITHER Adobe's Creative Cloud OR external storage (like AWS S3 or Azure Blog Storage). For external storage, a presigned URL will need to be provided as the href that references the input/output asset.
+Clients can use assets stored on one of the following storage types:
+1. Adobe: by referencing the path to the files on Creative Cloud
+2. External: (like AWS S3) by using a presigned GET/PUT URL
+3. Azure: By generating a SAS (Shared Access Signature) for upload/download
+4. Dropbox: Generate temporary upload/download links using https://dropbox.github.io/dropbox-api-v2-explorer/
 
 ## Input and Output file formats
 
@@ -153,18 +159,18 @@ curl -X POST \
 -H "x-api-key:$x-api-key" \
 
 -d '{
-  "inputs": {
-      "href": "<href>",
-      "storage": "<storage>"
-  },
-  "outputs": [
-    {
-      "href": "<href>",
-      "type": "<type>",
-      "storage": "<storage>",
-      "overwrite": <boolean>
-    }
-  ]
+    "inputs": {
+        "href": "<href>",
+        "storage": "<storage>"
+    },
+    "outputs": [
+        {
+            "href": "<href>",
+            "type": "<type>",
+            "storage": "<storage>",
+            "overwrite": <boolean>
+        }
+    ]
 }'
 
 https://image.adobe.io/lrService/autoTone
@@ -174,11 +180,58 @@ This initiates an asynchronous job and returns a request body containing the hre
 
 ```json
 {
-  "_links": {
-    "self": {
-      "href": "https://image.adobe.io/lrService/status/<:jobId>"
+    "_links": {
+        "self": {
+            "href": "https://image.adobe.io/lrService/status/<:jobId>"
+        }
     }
-  }
+}
+```
+
+## AutoStraighten
+Automatically straighten an image to correct exposure/contrast/sharpness/etc
+### /autoStraighten
+https://adobedocs.github.io/lightroom-api-docs/#api-autoStraighten-auto_straighten_post
+
+### Example : Initiate a job to auto straighten an image
+
+```shell
+
+curl -X POST \
+
+-H "authorization: Bearer $token" \
+
+-H "Content-Type:application/json" \
+
+-H "x-api-key:$x-api-key" \
+
+-d '{
+    "inputs": {
+        "href": "<href>",
+        "storage": "<storage>"
+    },
+    "outputs": [
+        {
+            "href": "<href>",
+            "type": "<type>",
+            "storage": "<storage>",
+            "overwrite": <boolean>
+        }
+    ]
+}'
+
+https://image.adobe.io/lrService/autoStraighten
+```
+
+This initiates an asynchronous job and returns a request body containing the href to poll for job status.
+
+```json
+{
+    "_links": {
+        "self": {
+            "href": "https://image.adobe.io/lrService/status/<:jobId>"
+        }
+    }
 }
 ```
 
@@ -200,30 +253,30 @@ curl -X POST \
 -H "x-api-key:$x-api-key" \
 
 -d '{
-  "inputs": {
-    "source": {
-      "href": "<href>",
-      "storage": "<storage>"
+    "inputs": {
+        "source": {
+            "href": "<href>",
+            "storage": "<storage>"
+        },
+        "presets": [
+            {
+                "href": "<href1>",
+                "storage": "<storage>"
+            },
+            {
+                "href": "<href2>",
+                "storage": "<storage>"
+            }
+        ]
     },
-    "presets": [
-      {
-        "href": "<href1>",
-        "storage": "<storage>"
-      },
-      {
-        "href": "<href2>",
-        "storage": "<storage>"
-      }
+    "outputs": [
+        {
+            "href": "<href>",
+            "type": "<type>",
+            "storage": "<storage>",
+            "overwrite": <boolean>
+        }
     ]
-  },
-  "outputs": [
-    {
-      "href": "<href>",
-      "type": "<type>",
-      "storage": "<storage>",
-      "overwrite": <boolean>
-    }
-  ]
 }'
 
 https://image.adobe.io/lrService/presets
@@ -233,11 +286,11 @@ This initiates an asynchronous job and returns a request body containing the hre
 
 ```json
 {
-  "_links": {
-    "self": {
-      "href": "https://image.adobe.io/lrService/status/<:jobId>"
+    "_links": {
+        "self": {
+            "href": "https://image.adobe.io/lrService/status/<:jobId>"
+        }
     }
-  }
 }
 ```
 ## Edit
@@ -258,41 +311,41 @@ curl -X POST \
 -H "x-api-key:$x-api-key" \
 
 -d '{
-  "inputs": {
-    "source": {
-      "href": "<href>",
-      "storage": "<storage>"
-    }
-  },
-  "options": {
-    "Exposure": -5.00 to 5.00,
-    "Contrast": -100 to 100,
-    "Sharpness": 0 10 150,
-    "WhiteBalance": <"As Shot", "Auto", "Cloudy", "Custom", "Daylight", "Flash", "Fluorescent", "Shade", "Tungsten">
-    "Saturation": -100 to 100,
-    "ColorNoiseReduction": 0 to 100,
-    "NoiseReduction": 0 to 100,
-    "VignetteAmount": -100 to 100,
-    "Vibrance": -100 to 100,
-    "Highlights": -100 to 100,
-    "Shadows": -100 to 100,
-    "Whites": -100 to 100,
-    "Blacks": -100 to 100,
-    "Clarity": -100 to 100,
-    "Dehaze": -100 to +100,
-    "SharpenRadius": 0.5 to 3.0,
-    "SharpenDetail": 0 to 100,
-    "SharpenEdgeMasking": 0 to 100,
-    "Texture": -100 t0 100
-  },
-  "outputs": [
-    {
-      "href": "<href>",
-      "type": "<type>",
-      "storage": "<storage>",
-      "overwrite": <boolean>
-    }
-  ]
+    "inputs": {
+        "source": {
+            "href": "<href>",
+            "storage": "<storage>"
+        }
+    },
+    "options": {
+        "Exposure": -5.00 to 5.00,
+        "Contrast": -100 to 100,
+        "Sharpness": 0 10 150,
+        "WhiteBalance": <"As Shot", "Auto", "Cloudy", "Custom", "Daylight", "Flash", "Fluorescent", "Shade", "Tungsten">
+        "Saturation": -100 to 100,
+        "ColorNoiseReduction": 0 to 100,
+        "NoiseReduction": 0 to 100,
+        "VignetteAmount": -100 to 100,
+        "Vibrance": -100 to 100,
+        "Highlights": -100 to 100,
+        "Shadows": -100 to 100,
+        "Whites": -100 to 100,
+        "Blacks": -100 to 100,
+        "Clarity": -100 to 100,
+        "Dehaze": -100 to +100,
+        "SharpenRadius": 0.5 to 3.0,
+        "SharpenDetail": 0 to 100,
+        "SharpenEdgeMasking": 0 to 100,
+        "Texture": -100 t0 100
+    },
+    "outputs": [
+        {
+            "href": "<href>",
+            "type": "<type>",
+            "storage": "<storage>",
+            "overwrite": <boolean>
+        }
+    ]
 }'
 
 https://image.adobe.io/lrService/edit
@@ -302,11 +355,11 @@ This initiates an asynchronous job and returns a request body containing the hre
 
 ```json
 {
-  "_links": {
-    "self": {
-      "href": "https://image.adobe.io/lrService/status/<:jobId>"
+    "_links": {
+        "self": {
+            "href": "https://image.adobe.io/lrService/status/<:jobId>"
+        }
     }
-  }
 }
 ```
 ## XMP
@@ -326,20 +379,20 @@ curl -X POST \
 -H "x-api-key:$x-api-key" \
 
 -d '{
-  "inputs": {
-    "href": "<href>",
-    "storage": "<storage>"
-  },
-  "options": {
-    "xmp": "<xmp>"
-  },
-  "outputs": [
-    {
-      "href": "<href>",
-      "storage": "<storage>",
-      "type": "<type>"
-    }
-  ]
+    "inputs": {
+        "href": "<href>",
+        "storage": "<storage>"
+    },
+    "options": {
+        "xmp": "<xmp>"
+    },
+    "outputs": [
+        {
+            "href": "<href>",
+            "storage": "<storage>",
+            "type": "<type>"
+        }
+    ]
 }'
 
 https://image.adobe.io/lrService/xmp
@@ -349,11 +402,11 @@ This initiates an asynchronous job and returns a request body containing the hre
 
 ```json
 {
-  "_links": {
-    "self": {
-      "href": "https://image.adobe.io/lrService/status/<:jobId>"
+    "_links": {
+        "self": {
+            "href": "https://image.adobe.io/lrService/status/<:jobId>"
+        }
     }
-  }
 }
 ```
 
