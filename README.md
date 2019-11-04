@@ -317,7 +317,7 @@ Apply one or more XMP Lightroom presets to an image, by referencing preset file(
 The preset file can be created by editing an image in lightroom and exporting it as a `.xmp` file.
 The details on how to create a preset can be found [here](https://helpx.adobe.com/lightroom-cc/how-to/photo-presets-lightroom-cc.html).
 If the use case would be to be able to create an `.xmp` file from a set of slider values obtained directly from a user, there are 2 ways to achieve this workflow:
-1. Start with the empty `.xmp` file from [here]() and add the corresponding slider values
+1. Start with the empty `.xmp` file from [here](https://github.com/AdobeDocs/lightroom-api-docs/tree/master/sample-app/crs.xml) and add the corresponding slider values
 2. Or please look ahead in this documentation page at the [/edit API](https://github.com/AdobeDocs/lightroom-api-docs#edit)
 ### /presets
 
