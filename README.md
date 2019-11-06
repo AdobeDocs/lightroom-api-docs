@@ -19,10 +19,10 @@
 - [Supported Features](#supported-features)
   - [AutoTone](#autotone)
     - [/autoTone](#autotone)
-    - [Example : Initiate a job to auto tone an image](#example--initiate-a-job-to-auto-tone-an-image)
+    - [Example: Initiate a job to auto tone an image](#example-initiate-a-job-to-auto-tone-an-image)
   - [AutoStraighten](#autostraighten)
     - [/autoStraighten](#autostraighten)
-    - [Example : Initiate a job to auto straighten an image](#example--initiate-a-job-to-auto-straighten-an-image)
+    - [Example: Initiate a job to auto straighten an image](#example-initiate-a-job-to-auto-straighten-an-image)
   - [Presets](#presets)
     - [/presets](#presets)
     - [Example : Initiate a job to apply presets to an image](#example--initiate-a-job-to-apply-presets-to-an-image)
@@ -32,6 +32,9 @@
   - [XMP](#xmp)
     - [/xmp](#xmp)
     - [Example : Initiate a job to apply xmp to an image](#example--initiate-a-job-to-apply-xmp-to-an-image)
+  - [Job Status](#job-status)
+    - [/status](#status)
+    - [Example: Poll for status and results](#example-poll-for-status-and-results)
 - [Current Limitations](#current-limitations)
 - [Release Notes](#release-notes)
 
@@ -103,7 +106,7 @@ This applies to assets stored outside of Adobe's Creative Cloud and accessed via
 
 - Select `Create new integration`
 
-To retrieve your access token see additional instructions at [Setting up JWT Authentication](https://www.adobe.io/authentication/auth-methods.html#!adobeio/adobeio-documentation/master/auth/JWTAuthenticationQuickStart.md)
+To retrieve your access token see additional instructions at [Setting up JWT Authentication](https://www.adobe.io/authentication/auth-methods.html#!AdobeDocs/adobeio-auth/master/JWT/JWT.md)
 
 ## API Keys
 
@@ -144,7 +147,7 @@ Automatically tone an image to correct exposure/contrast/sharpness/etc
 ### /autoTone
 The API is documented [here](https://adobedocs.github.io/lightroom-api-docs/#api-autoTone-auto_tone_post)
 
-#### Example: Initiate a job to auto tone an image
+### Example: Initiate a job to auto tone an image
 
 ```shell
 
@@ -185,45 +188,8 @@ This initiates an asynchronous job and returns a request body containing the hre
     }
 }
 ```
-#### Example: Poll for status and results
 
-Using the job id returned from the previous call you can poll on the returned `/status` href to get the job status and, upon success, the output file will be available at the specified output href.
-
-```shell
-curl -X GET \
-  https://image.adobe.io/lrService/status/<jobId> \
-  -H 'Authorization: Bearer <auth_token>' \
-  -H 'Content-Type: application/json' \
-  -H 'x-api-key: <YOUR_API_KEY>'
-```
-
-And this will return a request body containing the job status for each requested output and eventually either errors or the hrefs to the requested outputs
-
-```json
-{
-  "jobId":"<jobId>",
-  "created":"2018-01-04T12:57:15.12345:Z",
-  "modified":"2018-01-04T12:58:36.12345:Z",
-  "outputs":[
-  {
-      "input":"<input_file_href>",
-      "status":"succeeded",
-      "_links":{
-        "self":
-        {
-          "href":"<output_file_href>",
-          "storage":"adobe"
-        }
-      }
-    }
-  ],
-  "_links":{
-    "self":{
-      "href":"https://image.adobe.io/lrService/status/<jobId>"
-    }
-  }
-}
-```
+To check the status of the job completion, use the `/status` API. An example usage of the API can be found [here](https://github.com/AdobeDocs/lightroom-api-docs#job-status).
 
 ## AutoStraighten
 Applies the Auto Upright transformation on an image
@@ -272,45 +238,7 @@ This initiates an asynchronous job and returns a request body containing the hre
 }
 ```
 
-#### Example: Poll for status and results
-
-Using the job id returned from the previous call you can poll on the returned `/status` href to get the job status and, upon success, the output file will be available at the specified output href.
-
-```shell
-curl -X GET \
-  https://image.adobe.io/lrService/status/<jobId> \
-  -H 'Authorization: Bearer <auth_token>' \
-  -H 'Content-Type: application/json' \
-  -H 'x-api-key: <YOUR_API_KEY>'
-```
-
-And this will return a request body containing the job status for each requested output and eventually either errors or the hrefs to the requested outputs
-
-```json
-{
-  "jobId":"<jobId>",
-  "created":"2018-01-04T12:57:15.12345:Z",
-  "modified":"2018-01-04T12:58:36.12345:Z",
-  "outputs":[
-  {
-      "input":"<input_file_href>",
-      "status":"succeeded",
-      "_links":{
-        "self":
-        {
-          "href":"<output_file_href>",
-          "storage":"adobe"
-        }
-      }
-    }
-  ],
-  "_links":{
-    "self":{
-      "href":"https://image.adobe.io/lrService/status/<jobId>"
-    }
-  }
-}
-```
+To check the status of the job completion, use the `/status` API. An example usage of the API can be found [here](https://github.com/AdobeDocs/lightroom-api-docs#job-status).
 
 ## Presets
 Apply one or more XMP Lightroom presets to an image, by referencing preset file(s) stored on cloud.
@@ -376,47 +304,8 @@ This initiates an asynchronous job and returns a request body containing the hre
 }
 ```
 
-#### Example: Poll for status and results
+To check the status of the job completion, use the `/status` API. An example usage of the API can be found [here](https://github.com/AdobeDocs/lightroom-api-docs#job-status).
 
-Using the job id returned from the previous call you can poll on the returned `/status` href to get the job status and, upon success, the output file will be available at the specified output href.
-
-```shell
-curl -X GET \
-  https://image.adobe.io/lrService/status/<jobId> \
-  -H 'Authorization: Bearer <auth_token>' \
-  -H 'Content-Type: application/json' \
-  -H 'x-api-key: <YOUR_API_KEY>'
-```
-
-And this will return a request body containing the job status for each requested output and eventually either errors or the hrefs to the requested outputs
-
-```json
-{
-  "jobId":"<jobId>",
-  "created":"2018-01-04T12:57:15.12345:Z",
-  "modified":"2018-01-04T12:58:36.12345:Z",
-  "outputs":[
-  {
-      "input":"<input_file_href>",
-      "status":"succeeded",
-      "_links":{
-        "self":
-        {
-          "href":"<output_file_href>",
-          "storage":"adobe"
-        }
-      }
-    }
-  ],
-  "_links":{
-    "self":{
-      "href":"https://image.adobe.io/lrService/status/<jobId>"
-    }
-  }
-}
-```
-### Alternatives to the /presets API
-If
 ## Edit
 Apply one or more Lightroom edits to an image.
 ### /edit
@@ -488,45 +377,7 @@ This initiates an asynchronous job and returns a request body containing the hre
 }
 ```
 
-#### Example: Poll for status and results
-
-Using the job id returned from the previous call you can poll on the returned `/status` href to get the job status and, upon success, the output file will be available at the specified output href.
-
-```shell
-curl -X GET \
-  https://image.adobe.io/lrService/status/<jobId> \
-  -H 'Authorization: Bearer <auth_token>' \
-  -H 'Content-Type: application/json' \
-  -H 'x-api-key: <YOUR_API_KEY>'
-```
-
-And this will return a request body containing the job status for each requested output and eventually either errors or the hrefs to the requested outputs.
-
-```json
-{
-  "jobId":"<jobId>",
-  "created":"2018-01-04T12:57:15.12345:Z",
-  "modified":"2018-01-04T12:58:36.12345:Z",
-  "outputs":[
-  {
-      "input":"<input_file_href>",
-      "status":"succeeded",
-      "_links":{
-        "self":
-        {
-          "href":"<output_file_href>",
-          "storage":"adobe"
-        }
-      }
-    }
-  ],
-  "_links":{
-    "self":{
-      "href":"https://image.adobe.io/lrService/status/<jobId>"
-    }
-  }
-}
-```
+To check the status of the job completion, use the `/status` API. An example usage of the API can be found [here](https://github.com/AdobeDocs/lightroom-api-docs#job-status).
 
 ## XMP
 Apply a Lightroom preset to an image, by passing in the preset XMP contents inline through the API.
@@ -576,9 +427,16 @@ This initiates an asynchronous job and returns a request body containing the hre
 }
 ```
 
-#### Example: Poll for status and results
+To check the status of the job completion, use the `/status` API. An example usage of the API can be found [here](https://github.com/AdobeDocs/lightroom-api-docs#job-status).
 
-Using the job id returned from the previous call you can poll on the returned `/status` href to get the job status and, upon success, the output file will be available at the specified output href.
+## Job Status
+### /status
+Check the status of job completion using the JobID returned from a call to one of the Lightroom APIs listed above.
+### Example: Poll for status and results
+
+Use the JobID to poll on the href that is returned in the response from one of the Lightroom APIs.
+1. Upon successful job completion, the output file will be available at the specified output href.
+2. If the job failed due to an error, the `errorDetails` field in the response will contain the details of the failure.
 
 ```shell
 curl -X GET \
