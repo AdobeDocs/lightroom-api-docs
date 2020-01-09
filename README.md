@@ -2,7 +2,6 @@
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
 
-- [Prerelease Program](#prerelease-program)
 - [Welcome to Lightroom API's!](#welcome-to-lightroom-apis)
 - [Setup](#setup)
   - [Authentication](#authentication)
@@ -32,18 +31,9 @@
   - [XMP](#xmp)
     - [/xmp](#xmp)
     - [Example : Initiate a job to apply xmp to an image](#example--initiate-a-job-to-apply-xmp-to-an-image)
-- [Current Limitations](#current-limitations)
-- [Release Notes](#release-notes)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
-# Prerelease Program
-
-The Lightroom APIs are made available through the Adobe Prelease program. These APIs are included as part of the Photoshop as a Service pre-release program.  For the ability to make these API calls, we invite you to join the program.
-
-Please be aware of some aspects of the program. For example, you will need to agree to the Adobe Prelease agreement and NDA. The APIs are provided for evaluation purposes. The current APIs are subject to change. You can find more information on the Adobe Prerelease page.
-
-If you are not currently a member, please sign up at [https://photoshop.adobelanding.com/prerelease-stack/](https://photoshop.adobelanding.com/prerelease-stack/)
 
 # Welcome to Lightroom API's!
 
@@ -409,7 +399,3 @@ This initiates an asynchronous job and returns a request body containing the hre
     }
 }
 ```
-
-# Current Limitations
-&nbsp;
-# Release Notes
