@@ -378,7 +378,7 @@ This initiates an asynchronous job and returns a request body containing the hre
 Check status of a request
 ### /status/<:jobId>
 https://adobedocs.github.io/lightroom-api-docs/#api-autoTone-auto_tone_job_get
-### Example : Initiate a job to apply xmp to an image
+### Example : Check status of a request
 
 ```shell
 
