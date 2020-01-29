@@ -31,6 +31,9 @@
   - [XMP](#xmp)
     - [/xmp](#xmp)
     - [Example : Initiate a job to apply xmp to an image](#example--initiate-a-job-to-apply-xmp-to-an-image)
+  - [Status](#status)
+    - [/status/<:jobId>](#statusjobid)
+    - [Example : Check status of a request](#example--check-status-of-a-request)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
@@ -141,13 +144,9 @@ https://adobedocs.github.io/lightroom-api-docs/#api-autoTone-auto_tone_post
 ```shell
 
 curl -X POST \
-
 -H "authorization: Bearer $token" \
-
 -H "Content-Type:application/json" \
-
--H "x-api-key:$x-api-key" \
-
+-H "x-api-key:$x_api_key" \
 -d '{
     "inputs": {
         "href": "<href>",
@@ -161,8 +160,7 @@ curl -X POST \
             "overwrite": <boolean>
         }
     ]
-}'
-
+}' \
 https://image.adobe.io/lrService/autoTone
 ```
 
@@ -188,13 +186,9 @@ https://adobedocs.github.io/lightroom-api-docs/#api-autoStraighten-auto_straight
 ```shell
 
 curl -X POST \
-
 -H "authorization: Bearer $token" \
-
 -H "Content-Type:application/json" \
-
--H "x-api-key:$x-api-key" \
-
+-H "x-api-key:$x_api_key" \
 -d '{
     "inputs": {
         "href": "<href>",
@@ -208,8 +202,7 @@ curl -X POST \
             "overwrite": <boolean>
         }
     ]
-}'
-
+}' \
 https://image.adobe.io/lrService/autoStraighten
 ```
 
@@ -235,13 +228,9 @@ https://adobedocs.github.io/lightroom-api-docs/#api-presets-presets_post
 ```shell
 
 curl -X POST \
-
 -H "authorization: Bearer $token" \
-
 -H "Content-Type:application/json" \
-
--H "x-api-key:$x-api-key" \
-
+-H "x-api-key:$x_api_key" \
 -d '{
     "inputs": {
         "source": {
@@ -267,8 +256,7 @@ curl -X POST \
             "overwrite": <boolean>
         }
     ]
-}'
-
+}' \
 https://image.adobe.io/lrService/presets
 ```
 
@@ -293,13 +281,9 @@ https://adobedocs.github.io/lightroom-api-docs/#api-edit-edit_post
 ```shell
 
 curl -X POST \
-
 -H "authorization: Bearer $token" \
-
 -H "Content-Type:application/json" \
-
--H "x-api-key:$x-api-key" \
-
+-H "x-api-key:$x_api_key" \
 -d '{
     "inputs": {
         "source": {
@@ -336,8 +320,7 @@ curl -X POST \
             "overwrite": <boolean>
         }
     ]
-}'
-
+}' \
 https://image.adobe.io/lrService/edit
 ```
 
@@ -361,13 +344,9 @@ https://adobedocs.github.io/lightroom-api-docs/#api-xmp-xmp_post
 ```shell
 
 curl -X POST \
-
 -H "authorization: Bearer $token" \
-
 -H "Content-Type:application/json" \
-
--H "x-api-key:$x-api-key" \
-
+-H "x-api-key:$x_api_key" \
 -d '{
     "inputs": {
         "href": "<href>",
@@ -383,8 +362,7 @@ curl -X POST \
             "type": "<type>"
         }
     ]
-}'
-
+}' \
 https://image.adobe.io/lrService/xmp
 ```
 
@@ -399,3 +377,46 @@ This initiates an asynchronous job and returns a request body containing the hre
     }
 }
 ```
+## Status
+Check status of a request
+### /status/<:jobId>
+https://adobedocs.github.io/lightroom-api-docs/#api-autoTone-auto_tone_job_get
+### Example : Check status of a request
+
+```shell
+
+curl -X GET \
+-H "authorization: Bearer $token" \
+-H "Content-Type:application/json" \
+-H "x-api-key:$x_api_key" \
+https://image.adobe.io/lrService/status/<:jobId>
+```
+Example response from an auto tone request:
+
+```json
+{
+  "jobId":"f54e0fcb-260b-47c3-b520-de0d17dc2b67",
+  "created":"2018-01-04T12:57:15.12345:Z",
+  "modified":"2018-01-04T12:58:36.12345:Z",
+  "outputs":[
+    {
+      "input":"/some_project/photo.jpg",
+      "status":"succeeded",
+      "_links":{
+        "self":
+          {
+            "href":"/some_project/OUTPUT/photo.jpg",
+            "storage":"adobe"
+          }
+      }
+    }
+  ],
+  "_links":{
+    "self":{
+      "href":"https://image.adobe.io/lrService/status/f54e0fcb-260b-47c3-b520-de0d17dc2b67"
+    }
+  }
+}
+```
+
+
