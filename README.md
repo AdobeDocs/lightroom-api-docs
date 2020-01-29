@@ -31,6 +31,9 @@
   - [XMP](#xmp)
     - [/xmp](#xmp)
     - [Example : Initiate a job to apply xmp to an image](#example--initiate-a-job-to-apply-xmp-to-an-image)
+  - [Status](#status)
+    - [/status/<:jobId>](#statusjobid)
+    - [Example : Check status of a request](#example--check-status-of-a-request)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
