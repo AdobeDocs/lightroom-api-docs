@@ -342,7 +342,7 @@ curl -X POST \
         "SharpenRadius": 0.5 to 3.0,
         "SharpenDetail": 0 to 100,
         "SharpenEdgeMasking": 0 to 100,
-        "Texture": -100 t0 100
+        "Texture": -100 to 100
     },
     "outputs": [
         {
